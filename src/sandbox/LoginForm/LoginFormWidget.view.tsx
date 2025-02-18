@@ -5,7 +5,7 @@ import { ILoginFormFields } from "./LoginFormWidgetState";
 import { useForm } from "../../widgets/FormWidget/hooks/useForm__web";
 
 export default function LoginFormWidgetView(props: IFormWidgetViewProps<ILoginFormFields>) {
-	useWidgetRegister<IFormWidgetState<ILoginFormFields>>(props)
+	useWidgetRegister(props)
 
 	const { onSubmit: handleOnSubmit, register } = useForm<ILoginFormFields>(props)
 

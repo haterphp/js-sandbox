@@ -1,14 +1,9 @@
 import { useEffect } from "react";
-import { AbstarctState } from "../State/AbstractState";
-import { IWidgetViewProps } from "./Widget";
+import { Mountable } from "../Mountable/Mountable";
 
-export const useWidgetRegister = <
-	TStateObject extends object = object,
-	TState extends AbstarctState<TStateObject> = AbstarctState<TStateObject>,
-	TWidgetViewProps extends IWidgetViewProps<TStateObject, TState> = IWidgetViewProps<TStateObject, TState>
->(props: TWidgetViewProps) => {
+export const useWidgetRegister = (props: Mountable) => {
 	useEffect(() => {
 		props.mount()
-		return () => props.umount()
+		return () => props.unmount()
 	}, [])
 }

@@ -6,7 +6,7 @@ import { ButtonWidgetState, IButtonWidgetState } from "./ButtonWidgetState"
 type IButtonWidgetViewProps = IWidgetViewProps<IButtonWidgetState, ButtonWidgetState>
 
 export default function ButtonWidgetView(props: IButtonWidgetViewProps) {
-	useWidgetRegister<IButtonWidgetState>(props)
+	useWidgetRegister(props)
 
 	const getStateValue = useSyncState<IButtonWidgetState>(props.state)
 	const count = getStateValue('count')

@@ -1,14 +1,9 @@
 import { JSX } from "react";
 import { AbstarctState } from "../State/AbstractState";
+import { Mountable } from "../Mountable/Mountable";
 
-export interface IWidgetViewProps<
-	TStateObject extends object,
-	TState extends AbstarctState<TStateObject>
-> {
+export interface IWidgetViewProps<TStateObject extends object, TState extends AbstarctState<TStateObject>> extends Mountable {
 	state: TState
-
-	mount(): void
-	umount(): void
 }
 
 interface IWidgetCreatePayload<
@@ -36,15 +31,24 @@ export default abstract class Widget<
 
 	protected _mount(): void {}
 
-	protected _unmount(): void {
+	protected _unmount(): void {}
+
+	private __componentMount(): void {
+		this._state.mount()
+		this._mount()
+	}
+
+	private __componentUnmount(): void {
+		this._state.unmount()
+		this._unmount()
 		this._state.removeAllObservers()
 	}
 
 	protected _getWidgetViewProps(): TWidgetViewProps {
 		return {
 			state: this._state,
-			mount: this._mount.bind(this),
-			umount: this._unmount.bind(this)
+			mount: this.__componentMount.bind(this),
+			unmount: this.__componentUnmount.bind(this)
 		} as TWidgetViewProps
 	}
 
