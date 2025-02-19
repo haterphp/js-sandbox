@@ -3,6 +3,12 @@ import { AbstarctState } from "../../libs/State/AbstractState"
 
 export type RouteID = string | number
 
+export type WidgetFactory<
+	TStateObject extends object = any,
+	TState extends AbstarctState<TStateObject> = AbstarctState<TStateObject>,
+	TWidget extends Widget<TStateObject, TState> = Widget<TStateObject, TState>
+> = () => TWidget
+
 export class Route<
 	TStateObject extends object = any,
 	TState extends AbstarctState<TStateObject> = AbstarctState<TStateObject>,
@@ -10,26 +16,26 @@ export class Route<
 > {
 	private __routeId: RouteID
 
-	private __widget: TWidget
+	private __widgetFactory: WidgetFactory<TStateObject, TState, TWidget>
 
 	public get routeId(): RouteID {
 		return this.__routeId
 	}
 
 	public get widget(): TWidget {
-		return this.__widget
+		return this.__widgetFactory()
 	}
 
-	private constructor(routeId: RouteID, widget: TWidget) {
+	private constructor(routeId: RouteID, widget: WidgetFactory<TStateObject, TState, TWidget>) {
 		this.__routeId = routeId
-		this.__widget = widget
+		this.__widgetFactory = widget
 	}
 
 	public static new<
 		TStateObject extends object = any,
 		TState extends AbstarctState<TStateObject> = AbstarctState<TStateObject>,
 		TWidget extends Widget<TStateObject, TState> = Widget<TStateObject, TState>
-	>(routeId: string, widget: TWidget): Route<TStateObject, TState, TWidget> {
+	>(routeId: string, widget: WidgetFactory<TStateObject, TState, TWidget>): Route<TStateObject, TState, TWidget> {
 		return new Route(routeId, widget)
 	}
 }

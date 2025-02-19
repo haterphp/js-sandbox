@@ -13,8 +13,8 @@ export class ExampleRouteWidgetState extends RouterWidgetState {
 
 	protected static getRoutes(): Route[] {
 		return [
-			Route.new<IButtonWidgetState>('button', new ButtonWidget()),
-			Route.new<IFormWidgetState<ILoginFormFields>>('form', new LoginFormWidget()),
+			Route.new<IButtonWidgetState>('button', () => new ButtonWidget()),
+			Route.new<IFormWidgetState<ILoginFormFields>>('form', () => new LoginFormWidget()),
 		]
 	}
 }

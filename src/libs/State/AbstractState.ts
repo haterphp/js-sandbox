@@ -9,7 +9,7 @@ export abstract class AbstarctState<TStateObject extends object> implements Moun
 	private __publisher: StatePublisher<TStateObject>
 
 	constructor (initialStateObject: TStateObject) {
-		this.__stateObject = initialStateObject
+		this.__stateObject = Object.assign({}, initialStateObject)
 		this.__publisher = new StatePublisher()
 	}
 
@@ -44,5 +44,4 @@ export abstract class AbstarctState<TStateObject extends object> implements Moun
 		const notifyPayload = this.getSnapshot(key)
 		this.__publisher.notify({ key, value: notifyPayload })
 	}
-
 }

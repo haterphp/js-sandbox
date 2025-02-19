@@ -3,16 +3,15 @@ import { IExampleRouterContainerWidgetViewProps } from "./ExampleRouterContainer
 
 export default function ExampleRouterContainerWidgetView(props: IExampleRouterContainerWidgetViewProps) {
 	useWidgetRegister(props)
-
-	const { renderRouter, updateRouteId } = props
+	const { router } = props
 
 	return (
 		<div>
-			<button onClick={() => updateRouteId('button')}>Button</button>
-			<button onClick={() => updateRouteId('form')}>Form</button>
+			<button onClick={router.updateRouteId.bind(router, 'button')}>Button</button>
+			<button onClick={router.updateRouteId.bind(router, 'form')}>Form</button>
 
 			<div style={{ marginTop: '20px' }}>
-				{renderRouter()}
+				{router.render()}
 			</div>
 		</div>
 	)

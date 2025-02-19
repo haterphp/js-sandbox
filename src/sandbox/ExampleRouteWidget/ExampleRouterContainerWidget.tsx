@@ -4,11 +4,10 @@ import { AbstarctState } from "../../libs/State/AbstractState";
 import ExampleRouterContainerWidgetView from "./ExampleRouterContainerWidget.view";
 import { RouterWidget } from "../../widgets/RouterWidget/RouterWidget";
 import { ExampleRouteWidgetState } from "./Router/ExampleRouteWidgetState";
-import { Route, RouteID } from "../../widgets/RouterWidget/Route";
+import { Route } from "../../widgets/RouterWidget/Route";
 
 export interface IExampleRouterContainerWidgetViewProps extends IWidgetViewProps<{}, ExampleRouterContainerWidgetState> {
-	renderRouter: () => JSX.Element | null
-	updateRouteId: (routeId: RouteID) => void
+	router: RouterWidget
 }
 
 export class ExampleRouterContainerWidgetState extends AbstarctState<{}> {}
@@ -40,8 +39,7 @@ export class ExampleRouterContainerWidget extends Widget<{}, ExampleRouterContai
 	protected _getWidgetViewProps(): IExampleRouterContainerWidgetViewProps {
 		return {
 			...super._getWidgetViewProps(),
-			renderRouter: this.__router.render.bind(this.__router),
-			updateRouteId: this.__router.updateRouteId.bind(this.__router)
+			router: this.__router,
 		}
 	}
 
